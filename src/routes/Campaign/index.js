@@ -1,9 +1,10 @@
+import { string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import CampaignItem from './components/CampaignItem';
 import { container } from './styles';
 import normalizer from './utils/normalizer';
 
-const Campaign = () => {
+const Campaign = ({ sortBy }) => {
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState('false');
 
@@ -30,14 +31,27 @@ const Campaign = () => {
     fetchCampaignList();
   }, []);
 
+  const sortedResult = (by) => result.sort((a, b) => (a[by] > b[by] ? 1 : -1));
+
+  useEffect(() => {
+    setResult(sortedResult(sortBy));
+  }, [sortBy]);
+
   if (loading) return <div>Shimmer loading</div>;
-  // console.log({ result });
 
   return (
     <div className={container}>
         {result.map((campaign) => <CampaignItem {...campaign} key={ campaign.id } />)}
     </div>
   );
+};
+
+Campaign.propTypes = {
+  sortBy: string,
+};
+
+Campaign.defaultProps = {
+  sortBy: '',
 };
 
 export default Campaign;

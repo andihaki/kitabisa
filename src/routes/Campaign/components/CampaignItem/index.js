@@ -1,6 +1,6 @@
 import React from 'react';
 import { number, string } from 'prop-types';
-import toIDR from '../../utils/toIDR';
+import toIDR from '../../../../utils/toIDR';
 import {
   container, imgContainer, titleCx, ProgressBar, flexBetween,
 } from './styles';
